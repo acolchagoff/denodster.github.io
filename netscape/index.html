@@ -41,5 +41,10 @@
 
 		<p>In the end Even though Explorer offers a better layout engine and faster load times, I end up using netscape due to the fact that it seems to load anything eventually rather than failing most of the time. Would it be nice if we could just make it support SSL and speed it up a little?</p>
 		<p>Well maybe we can...</p>
+		<h2>Building the Source</h2>
+		<p>This is proving to be more difficult than I had expected. Finding the source was relatively easy. The march 31, 1998 release is available from mozilla in a source archive here: <a href="https://archive.mozilla.org/pub/mozilla/source/">Mozilla Source Archive</a>.</p>
+		<p>I downloaded the mozilla-19980331-mac.sit.bin file on my Macbook and then copied it into a SheepShaver Instance running Mac OS 9.0.4. The sheepshaver instance uncompressed it alright and then I found the build instructions located in the archive at "MacMozillaSource:Build Documentation:macbuild.htm" (Classic mac os paths are delimited by colons).</p>
+		<p>I've uploaded the build instructions here: <a href="macbuild.htm">macbuild.htm</a></p>
+		<p>The build instructions were longer than I expected, I had hoped for something that just had me running a few commands in MPW but it turns out Mozilla for classic mac os required CodeWarrior AND MPW to build. And the build is launched by its own executable. To make things worse, the source isn't even complete, it has almost a dozen dependencies that need to be obtained before it can be built...</p>
 			</body>
-		
+	</html>	
