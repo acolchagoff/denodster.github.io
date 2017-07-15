@@ -79,6 +79,37 @@
 			<p><strong>Update: I managed to get ahold of the develop 26 cd on ebay, my understanding is that it should also contain all of the build tools that were supplied on the develop 25 cd, but we will see. It should arrive in about a week.</strong></p>
 		<p> One of the guys on the 68kmla forums came through and got me not only ToolFrontEnd but everything that was Distributed with Develop 25. I've added the sit file as a link above.</p>
 		<h2>First Build Attempt (July 15<sup>th</sup>, 2017)</h2>
+		<p> I'm adding a table that documents what libraries I've been able to build. you can skip my rambling and just see what I've built and when I figured out how to build it.</p>
+		<table>
+			<thead>
+				<tr>
+					<th>Library</th><th>Built On</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>:ns:lib:mac:NSRuntime:NSRuntime.mcp</td><td>7/14</td></tr>
+				<tr><td>:ns:cmd:macfe:restext:NavStringLibPPC.mcp</td><td>7/14</td></tr>
+				<tr><td>:ns:lib:mac:MoreFiles:build:MoreFilesPPC.prj</td><td>7/14</td></tr>
+                                <tr><td>:ns:nsprpub:macbuild:NSPR20PPC.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:dbm:macbuild:DBMPPC.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:lib:mac:MacMemoryAllocator:MemAllocator.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:lib:mac:NSStdLib:NSStdLib.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:modules:security:freenav:macbuild:NoSecurity.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:xpcom:macbuild:xpcomPPC.mcp</td><td>7/15</td></tr>
+                                <tr><td>:ns:lib:mac:PowerPlant:PowerPlant.mcp</td><td></td></tr>
+                                <tr><td>:ns:modules:zlib:macbuild:zlib.mcp</td><td></td></tr>
+                                <tr><td>:ns:jpeg:macbuild:JPEG.mcp</td><td></td></tr>
+                                <tr><td>:ns:sun-java:stubs:macbuild:JavaStubs.mcp</td><td></td></tr>
+                                <tr><td>:ns:js:jsj:macbuild:JSJ_PPC.mcp</td><td></td></tr>
+                                <tr><td>:ns:js:macbuild:JavaScriptPPC.mcp</td><td></td></tr>
+                                <tr><td>:ns:nav-java:stubs:macbuild:NavJavaStubs.mcp</td><td></td></tr>
+                                <tr><td>:ns:modules:rdf:macbuild:RDF.mcp</td><td></td></tr>
+                                <tr><td>:ns:modules:xml:macbuild:XML.mcp</td><td></td></tr>
+                                <tr><td>:ns:modules:libfont:macbuild:FontBroker.mcp</td><td></td></tr>
+                                <tr><td>:ns:modules:schedulr:macbuild:Schedulr.mcp</td><td></td></tr>
+                                <tr><td>:ns:cmd:macfe:projects:client:Navigator.mcp</td><td></td></tr>
+			</tbody>
+		</table>
 		<p> I began by using a trusty and stable Sheepshaver image that I keep around running Mac OS 9.0.4. I installed Codwarrior 3 Pro on a 1 Gb disk image and followed the instructions spelled out in macbuild.htm to a letter.</p>		<p> Next I started the build. The build process is an interesting one as I am used to opening up a project file and clicking build, but the guys at netscape created a much more involved build method. I assume their crazy build style has a lot to do with the speed of the available computers at the time. If you cut everything up into seperate modules and libraries that can be build seperately, you save compiling time.</p>
 		<p> Anyway, to build I needed to open up a folder 
 		<pre> Mozilla Source:ns:cmd:macfe:projects:client</pre>
@@ -109,6 +140,9 @@ missing source code?!?! It appears that my version of codewarrior has a differen
 		<p> and More Link Errors... from a .exp file. commenting them out seemed to work out okay last time so I'm going to try it again.... and that seemed to work, however i needed to add MallocUtils.c to the project file to get everything to build properly. onto the next build attempt...</p>
 		<p> After several more sucessful builds, i'm now stuck on xpcomPPC.mcp and I'm tired, so I'm going to call it a night.<br />
 <img src="xpcom.gif" />Here's the error...</p>		
-
+		<p>Okay Figured this one out, I found some codewarrior documentation here: <a href="http://www.nxp.com/docs/en/reference-manual/CCOMPILERRM.pdf">C Compilers Reference 3.2</a> I needed to change 'export' to 'exportdll' in the file that defnes the macros. once doing this everything built without error. On to the next attempt... </p>
+		<p>next Roadblock? PowerPlant.mcp. It appears that I'm encountering numerous issues where my libraries from codewarrior are slightly different or something is slightly out of wack... I really should try building with Codewarrior 2 Pro... the problem is there are no copies of Codewarrior 2 Pro on ebay or Macintosh Garden. If anyone has a copy please contact me on 68kmla.org...</p>
+		<p> once again I've got linker errors...<br />
+<img src="powerplant.gif" /><br />
 	</body>
 </html>	
