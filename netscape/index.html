@@ -47,7 +47,7 @@
 
 		<p>In the end Even though Explorer offers a better layout engine and faster load times, I end up using netscape due to the fact that it seems to load anything eventually rather than failing most of the time. Would it be nice if we could just make it support SSL and speed it up a little?</p>
 		<p>Well maybe we can...</p>
-		<h2>Gathering Dependencies and Tools</h2>
+		<h2>Gathering Dependencies and Tools (July 3<sup>rd</sup>, 2017)</h2>
 		<p>This is proved to be more difficult than I had expected. Finding the source was relatively easy. The march 31, 1998 release is available from mozilla in a source archive here: <a href="https://archive.mozilla.org/pub/mozilla/source/">Mozilla Source Archive</a>.</p>
 		<p>I downloaded the mozilla-19980331-mac.sit.bin file on my Macbook and then copied it into a SheepShaver Instance running Mac OS 9.0.4. The sheepshaver instance uncompressed it alright and then I found the build instructions located in the archive at "MacMozillaSource:Build Documentation:macbuild.htm" (Classic mac os paths are delimited by colons).</p>
 		<p>I've uploaded the build instructions here: <a href="macbuild.htm">macbuild.htm</a></p>
@@ -77,7 +77,7 @@
 			<p> In Short, this project is stalled until I can get ahold of a copy of the Develop 25 cd from apple... I'll try the 68k mla forums next... If anyone has it, post to the retrocomputing thread <a href="https://retrocomputing.stackexchange.com/questions/3246/trying-to-build-first-mozilla-release-netscape-5">here</a>.</p>
 			<p><strong>Update: I managed to get ahold of the develop 26 cd on ebay, my understanding is that it should also contain all of the build tools that were supplied on the develop 25 cd, but we will see. It should arrive in about a week.</strong></p>
 		<p> One of the guys on the 68kmla forums came through and got me not only ToolFrontEnd but everything that was Distributed with Develop 25. I've added the sit file as a link above.</p>
-		<h2>First Build Attempt</h2>
+		<h2>First Build Attempt (July 15<sup>th</sup>, 2017)</h2>
 		<p> I began by using a trusty and stable Sheepshaver image that I keep around running Mac OS 9.0.4. I installed Codwarrior 3 Pro on a 1 Gb disk image and followed the instructions spelled out in macbuild.htm to a letter.</p>		<p> Next I started the build. The build process is an interesting one as I am used to opening up a project file and clicking build, but the guys at netscape created a much more involved build method. I assume their crazy build style has a lot to do with the speed of the available computers at the time. If you cut everything up into seperate modules and libraries that can be build seperately, you save compiling time.</p>
 		<p> Anyway, to build I needed to open up a folder 
 		<pre> Mozilla Source:ns:cmd:macfe:projects:client</pre>
