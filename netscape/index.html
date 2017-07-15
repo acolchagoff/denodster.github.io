@@ -47,8 +47,8 @@
 
 		<p>In the end Even though Explorer offers a better layout engine and faster load times, I end up using netscape due to the fact that it seems to load anything eventually rather than failing most of the time. Would it be nice if we could just make it support SSL and speed it up a little?</p>
 		<p>Well maybe we can...</p>
-		<h2>Building the Source</h2>
-		<p>This is proving to be more difficult than I had expected. Finding the source was relatively easy. The march 31, 1998 release is available from mozilla in a source archive here: <a href="https://archive.mozilla.org/pub/mozilla/source/">Mozilla Source Archive</a>.</p>
+		<h2>Gathering Dependencies and Tools</h2>
+		<p>This is proved to be more difficult than I had expected. Finding the source was relatively easy. The march 31, 1998 release is available from mozilla in a source archive here: <a href="https://archive.mozilla.org/pub/mozilla/source/">Mozilla Source Archive</a>.</p>
 		<p>I downloaded the mozilla-19980331-mac.sit.bin file on my Macbook and then copied it into a SheepShaver Instance running Mac OS 9.0.4. The sheepshaver instance uncompressed it alright and then I found the build instructions located in the archive at "MacMozillaSource:Build Documentation:macbuild.htm" (Classic mac os paths are delimited by colons).</p>
 		<p>I've uploaded the build instructions here: <a href="macbuild.htm">macbuild.htm</a></p>
 		<p>The build instructions were longer than I expected, I had hoped for something that just had me running a few commands in MPW but it turns out Mozilla for classic mac os required CodeWarrior AND MPW to build. And the build is launched by its own executable. To make things worse, the source isn't even complete, it has almost a dozen dependencies that need to be obtained before it can be built...</p>
@@ -77,5 +77,35 @@
 			<p> In Short, this project is stalled until I can get ahold of a copy of the Develop 25 cd from apple... I'll try the 68k mla forums next... If anyone has it, post to the retrocomputing thread <a href="https://retrocomputing.stackexchange.com/questions/3246/trying-to-build-first-mozilla-release-netscape-5">here</a>.</p>
 			<p><strong>Update: I managed to get ahold of the develop 26 cd on ebay, my understanding is that it should also contain all of the build tools that were supplied on the develop 25 cd, but we will see. It should arrive in about a week.</strong></p>
 		<p> One of the guys on the 68kmla forums came through and got me not only ToolFrontEnd but everything that was Distributed with Develop 25. I've added the sit file as a link above.</p>
+		<h2>First Build Attempt</h2>
+		<p> I began by using a trusty and stable Sheepshaver image that I keep around running Mac OS 9.0.4. I installed Codwarrior 3 Pro on a 1 Gb disk image and followed the instructions spelled out in macbuild.htm to a letter.</p>		<p> Next I started the build. The build process is an interesting one as I am used to opening up a project file and clicking build, but the guys at netscape created a much more involved build method. I assume their crazy build style has a lot to do with the speed of the available computers at the time. If you cut everything up into seperate modules and libraries that can be build seperately, you save compiling time.</p>
+		<p> Anyway, to build I needed to open up a folder 
+		<pre> Mozilla Source:ns:cmd:macfe:projects:client</pre>
+		this folder contained 4 text files that are basically manifests of a dozen or more codewarrior projects each. To build I would drag one of these text files onto an application called 'BuildList' in the parent directory. (I'm aiming for the ones that start with 'BuildNavPPC', because I'm not particularly interested in the extra mozilla features like composer.)</p>
+		<p> Once the build started it immediately hit me with this message and stopped.<br />
+<img src="convert.gif" /><br />
+It seems that Each and every project file is actually older than The version of Codewarrior 3 Pro that I'm running, so they will all need to be converted first. It seems that Netscape was probably using Codewarrior 2 Pro when they pushed this source code release. Hopefully this doesn't become too much of a problem. Converting the project files relatively painless, however I need to restart the build process from the very beginning each time I convert a project, as the window halts the build script in such a way that it cannot be resumed.</p>
+		<p> It turns out the instructions are a tad difficient in they sometimes skip steps such as moving dependencies out of subfolders before installing them. Most of the dependencies I used were the exact versions but a couple I was unable to obtain exact versions so I had to substitute. The biggest example of this is CWasteEdit I needed to rename the folder to have a date on the end before codewarrior. Fortunately all of these sorts of problems were easy to resolve as codewarrior gave me nice neat errors that told me the dependency, and the path it was expecting to find it at. I then just needed to determine why it wasn't where codewarrior expected it to be.</p>
+		<p> Another obversation is that the finder informs me after each project builds that ToolServer has Unexpectedly quit.<br />
+<img src="toolserver.gif" /><br />
+I think this is an indicator that the guys at netscape were not using HFS+ when they released the source code. Given the date It appears that Mac OS 8.1 has only been released days prior to the Mozilla source, and its probably safe to say that they weren't that eager to reformat their hard drives at the time.</p>
+		<p> Anyway, about 4 projects into the build I got stopped in my tracks. 
+<br /><em>Linker Errors...</em><br />
+<img src="link_errors.gif" /><br />
+It appears that the libraries provided with my version of codewarrior are perhaps deficient in some way... I'm not entirely certain however. In this case it appears that all of these undefined symbols are defined in a .exp file in the NSRuntime.mcp project. I'm going to go out on a limb and comment them out.</p>
+		<p>commenting out the references appears to have worked and left me with one build error:
+<pre>
+		#if __MWERKS__>=0x2020
+		::operator delete[] ((char *)block-2*sizeof(size_t));
+		#else
+		::operator delete ((char *)block-2*sizeof(size_t));
+		#endif
+</pre>
+	The if portion of this preprocessor directive seems to have something to do with the version of codewarrior, I'm going to go out on a limb and assume it's referring to the wrong version of codewarrior and comment it out in favor of the else.... And that worked, that particular project now builds now off to start the build process again.</p>
+		<p> Several more projects built without issue, until I reached NSStdLib.mcp, and then another roadblock:<br />
+<img src="algorith.gif" /><br />
+missing source code?!?! It appears that my version of codewarrior has a different metroworks standard library than the one used by the guys at netscape... I have a file called algorithm.cpp but not algorith.cpp... I'll try swapping it out for this project and see what happens.</p>
+		<p> and More Link Errors... from a .exp file. commenting them out seemed to work out okay last time so I'm going to try it again.... and that seemed to work, however i needed to add MallocUtils.c to the project file to get everything to build properly. onto the next build attempt...</p>
+		<p> After several more sucessful builds, i'm now stuck on xpcomPPC.mcp and I'm tired, so I'm going to call it a night.</p>		
 	</body>
 </html>	
