@@ -1,0 +1,199 @@
+<style>
+    html, body {
+        margin: 0!important;
+        padding: 0!important;
+        overflow: hidden!important;
+        width: 100%;
+    }
+</style>
+
+<title>Audio Recording | RecordRTC</title>
+<h1>Simple Audio Recording using RecordRTC</h1>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+<br>
+
+<button id="btn-start-recording">Start Recording</button>
+<button id="btn-stop-recording" disabled>Stop Recording</button>
+<label><input id="visualizer" type="checkbox" checked/>Show Visualizer</label>
+
+<hr>
+<canvas id="audio-canvas"></canvas>
+<div><audio controls autoplay></audio></div>
+
+<script src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+
+<script>
+var audio = document.querySelector('audio');
+
+function captureMicrophone(callback) {
+
+    if(microphone) {
+        callback(microphone);
+        return;
+    }
+
+    if(typeof navigator.mediaDevices === 'undefined' || !navigator.mediaDevices.getUserMedia) {
+        alert('This browser does not supports WebRTC getUserMedia API.');
+
+        if(!!navigator.getUserMedia) {
+            alert('This browser seems supporting deprecated getUserMedia API.');
+        }
+    }
+
+    navigator.mediaDevices.getUserMedia({
+        audio: {
+            echoCancellation: false
+        }
+    }).then(function(mic) {
+        callback(mic);
+    }).catch(function(error) {
+        alert('Unable to capture your microphone. Please check console logs.');
+        console.error(error);
+    });
+}
+
+function replaceAudio(src) {
+    var newAudio = document.createElement('audio');
+    newAudio.controls = true;
+
+    if(src) {
+        newAudio.src = src;
+    }
+    
+    var parentNode = audio.parentNode;
+    parentNode.innerHTML = '';
+    parentNode.appendChild(newAudio);
+
+    audio = newAudio;
+}
+
+function stopRecordingCallback() {
+    replaceAudio(URL.createObjectURL(recorder.getBlob()));
+
+    btnStartRecording.disabled = false;
+
+    setTimeout(function() {
+        if(!audio.paused) return;
+
+        setTimeout(function() {
+            if(!audio.paused) return;
+            audio.play();
+        }, 1000);
+        
+        audio.play();
+    }, 300);
+
+    audio.play();
+
+    if(microphone) {
+        microphone.stop();
+        microphone = null;
+    }
+}
+
+var recorder; // globally accessible
+var microphone;
+
+var btnStartRecording = document.getElementById('btn-start-recording');
+var btnStopRecording = document.getElementById('btn-stop-recording');
+var canvas = document.getElementById('audio-canvas');
+var visualizerCheckbox = document.getElementById('visualizer'); 
+
+btnStartRecording.onclick = function() {
+    this.disabled = true;
+    this.style.border = '';
+    this.style.fontSize = '';
+
+    if (!microphone) {
+        captureMicrophone(function(mic) {
+            microphone = mic;
+
+            replaceAudio();
+
+            audio.muted = true;
+            audio.play();
+
+            btnStartRecording.disabled = false;
+            btnStartRecording.style.border = '1px solid red';
+            btnStartRecording.style.fontSize = '150%';
+
+            alert('Please click startRecording button again. First time we tried to access your microphone. Now we will record it.');
+        });
+        return;
+    }
+
+    replaceAudio();
+
+    audio.muted = true;
+    audio.play();
+
+    if(visualizerCheckbox.checked){
+        initScope(canvas);
+    }
+
+    var options = {
+        type: 'audio',
+        numberOfAudioChannels: 2,
+        checkForInactiveTracks: true,
+        bufferSize: 16384,
+        sampleRate: 48000
+    };
+
+    if(recorder) {
+        recorder.destroy();
+        recorder = null;
+    }
+
+    recorder = RecordRTC(microphone, options);
+
+    recorder.startRecording();
+
+    btnStopRecording.disabled = false;
+};
+
+btnStopRecording.onclick = function() {
+    this.disabled = true;
+    recorder.stopRecording(stopRecordingCallback);
+};
+
+function initScope(audioScopeCanvas) {
+        if (audioScopeCanvas) {
+            var analyser;
+            var mic;
+            var javascriptNode;
+            var canvasContext;
+            audioContext = new AudioContext(); // NEW!!
+            analyser = audioContext.createAnalyser();
+            mic = audioContext.createMediaStreamSource(microphone);
+            javascriptNode =  audioContext.createScriptProcessor(2048, 1, 1);
+
+            analyser.smoothingTimeConstant = 0.3;
+            analyser.fftSize = 1024;
+
+            mic.connect(analyser);
+            analyser.connect(javascriptNode);
+            javascriptNode.connect(audioContext.destination);
+
+            //canvasContext = $("#canvas")[0].getContext("2d");
+            canvasContext = audioScopeCanvas.getContext("2d");
+
+            javascriptNode.onaudioprocess = function () {
+                var array = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteFrequencyData(array);
+                var values = 0;
+
+                var length = array.length;
+                for (var i = 0; i < length; i++) {
+                    values += array[i];
+                }
+
+                var average = values / length;
+                canvasContext.clearRect(0, 0, 60, 130);
+                canvasContext.fillStyle = '#00ff00';
+                canvasContext.fillRect(0, 130 - average, 25, 130);
+            };
+        }
+    }
+</script>
+
