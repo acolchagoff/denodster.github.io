@@ -3,7 +3,7 @@
 	<head>
 	</head>
 	<body>
-		<a href="/">Go Back...</a>
+		<a href="">Go Back...</a>
 		<h1>Attempt to Build Mozilla in sheepshaver.</h1>
 		<p>Due to a recent desire to surf the internet using my LCIII I went on a quest to find the best 68k browser I could download. Unfortunately for a 68k mac this ended up being a tossup between Internet Explorer 4.0 and Netscape Navigator 4.08.</p>
 		<h2>Internet Explorer 4 vs Netscape 4</h2>
@@ -50,7 +50,7 @@
 		<h2>Gathering Dependencies and Tools (July 3<sup>rd</sup>, 2017)</h2>
 		<p>This is proved to be more difficult than I had expected. Finding the source was relatively easy. The march 31, 1998 release is available from mozilla in a source archive here: <a href="https://archive.mozilla.org/pub/mozilla/source/">Mozilla Source Archive</a>.</p>
 		<p>I downloaded the mozilla-19980331-mac.sit.bin file on my Macbook and then copied it into a SheepShaver Instance running Mac OS 9.0.4. The sheepshaver instance uncompressed it alright and then I found the build instructions located in the archive at "MacMozillaSource:Build Documentation:macbuild.htm" (Classic mac os paths are delimited by colons).</p>
-		<p>I've uploaded the build instructions here: <a href="macbuild.htm">macbuild.htm</a></p>
+		<p>I've uploaded the build instructions here: <a href="macbuild">macbuild.htm</a></p>
 		<p>The build instructions were longer than I expected, I had hoped for something that just had me running a few commands in MPW but it turns out Mozilla for classic mac os required CodeWarrior AND MPW to build. And the build is launched by its own executable. To make things worse, the source isn't even complete, it has almost a dozen dependencies that need to be obtained before it can be built...</p>
 		<p> I started by looking for a copy of codewarrior, Fortunately this was relatively easy to obtain, as the <a href="http://macintoshgarden.org/">Macintosh Garden</a> had both Codewarrior Pro 3 and Pro 4. After Installing Codewarrior 3 in Sheepshaver, I set out to download the dependancies described in the build instructions. Pretty much every link in macbuild.htm was broken, so it seems that most of these dependencies have long vanished from the internet. After several days of combing <a href="archive.org"> The Internet Archive </a> and posting on <a href="https://retrocomputing.stackexchange.com/questions/3246/trying-to-build-first-mozilla-release-netscape-5"> Stack Exchnage: Retrocomputing </a> I've been abe to obtain all the dependencies... But not all of the tools.... Here's what I've found.</p>
 		<h3 id="dependencies">Dependencies</h3>
