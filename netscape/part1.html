@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<a href="/">Go Back...</a>
+		<h1>Attempt to Build Mozilla in sheepshaver.</h1>
+		<p>Due to a recent desire to surf the internet using my LCIII I went on a quest to find the best 68k browser I could download. Unfortunately for a 68k mac this ended up being a tossup between Internet Explorer 4.0 and Netscape Navigator 4.08.</p>
+		<h2>Internet Explorer 4 vs Netscape 4</h2>
+		<p> The machine in Question? A clock chipped LCIII with 20 Mb of Ram and a SCSI2 SD replacement 4gb hard drive running 7.6.1.</p>
+		<table>
+			<thead>
+			<tr>
+				<th></th>
+				<th>Internet Explorer 4.01</th>
+				<th>Netscape Navigator 4.08</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>Speed (with images turned off)</td>
+				<td>Slow</td>
+				<td>Slower</td>
+			</tr>
+			<tr>
+				<td>CSS Support</td>
+				<td>Basic positioning</td>
+				<td>Non-existant</td>
+			</tr>
+			<tr>
+				<td>Website Compatibilty</td>
+				<td>Wont Even load most sites</td>
+				<td>Loads most sites</td>
+			</tr>
+			<tr>
+				<td>png images</td>
+				<td>Nope</td>
+				<td>Yep</td>
+			</tr>
+			<tr>
+				<td>Download</td>
+				<td><a href="browsers/IE_4.01_68K.sit"> IE 4.01 68k </a></td>
+				<td><a href="browsers/Nav4.08_EX_68K.bin"> Netscape 4.08 68k </a></td>
+			</tr>
+			</tbody>
+		</table>
+
+		<p>In the end Even though Explorer offers a better layout engine and faster load times, I end up using netscape due to the fact that it seems to load anything eventually rather than failing most of the time. Would it be nice if we could just make it support SSL and speed it up a little?</p>
+		<p>Well maybe we can...</p>
+		<h2>Gathering Dependencies and Tools (July 3<sup>rd</sup>, 2017)</h2>
+		<p>This is proved to be more difficult than I had expected. Finding the source was relatively easy. The march 31, 1998 release is available from mozilla in a source archive here: <a href="https://archive.mozilla.org/pub/mozilla/source/">Mozilla Source Archive</a>.</p>
+		<p>I downloaded the mozilla-19980331-mac.sit.bin file on my Macbook and then copied it into a SheepShaver Instance running Mac OS 9.0.4. The sheepshaver instance uncompressed it alright and then I found the build instructions located in the archive at "MacMozillaSource:Build Documentation:macbuild.htm" (Classic mac os paths are delimited by colons).</p>
+		<p>I've uploaded the build instructions here: <a href="macbuild.htm">macbuild.htm</a></p>
+		<p>The build instructions were longer than I expected, I had hoped for something that just had me running a few commands in MPW but it turns out Mozilla for classic mac os required CodeWarrior AND MPW to build. And the build is launched by its own executable. To make things worse, the source isn't even complete, it has almost a dozen dependencies that need to be obtained before it can be built...</p>
+		<p> I started by looking for a copy of codewarrior, Fortunately this was relatively easy to obtain, as the <a href="http://macintoshgarden.org/">Macintosh Garden</a> had both Codewarrior Pro 3 and Pro 4. After Installing Codewarrior 3 in Sheepshaver, I set out to download the dependancies described in the build instructions. Pretty much every link in macbuild.htm was broken, so it seems that most of these dependencies have long vanished from the internet. After several days of combing <a href="archive.org"> The Internet Archive </a> and posting on <a href="https://retrocomputing.stackexchange.com/questions/3246/trying-to-build-first-mozilla-release-netscape-5"> Stack Exchnage: Retrocomputing </a> I've been abe to obtain all the dependencies... But not all of the tools.... Here's what I've found.</p>
+		<h3 id="dependencies">Dependencies</h3>
+		<ul>
+			<li><a href="dependencies/waste-13.hqx">WASTE 1.3</a></li>
+			<li><a href="dependencies/CWASTEEdit19970402.sit.hqx"> CWASTE from eary 1997 </a></li>
+			<li><a href="dependencies/CWASTEEdit19980602.sit.hqx"> CWASTE from mid 1998 </a></li>
+			<li><a href="dependencies/MacBirdSource.hqx"> MacBird Source (is distributed with Menu Sharing Toolkit in a Sub folder, Classilla uses this to build)</a></li>
+			<li><a href="dependencies/mercutio-1.5.1-sdk.sit.bin">Mercutio 1.5.1 SDK</a></li>
+			<li><a href="dependencies/ic-prog-kit-14.hqx"> Internet Config 1.4 SDK </a></li>
+			<li><a href="dependencies/AEGizmos1.4.2.hqx"> AEGizmos 1.4.2 </a></li>
+		</ul>
+		<h3 id="tools">Tools</h3>
+		<ul>
+			<li><a href="dependencies/develop_25.sit">ToolFrontEnd</a> <strong>(<a href="http://web.archive.org/web/19990909113056/http://developer.apple.com:80/dev/techsupport/develop/issue25/mpw.html">Archived Docs here</a>)</strong></li>
+			<li><a href="dependencies/Patch_21.sit.bin">Patch 2.1</a></li>
+			<li><a href="dependencies/Mac_Perl_514r4a_tool.sit">MacPerl 5 MPW Tool</a></li>
+			<li>ToolServer <strong>(comes with codewarrior)</strong></li>
+		</ul>
+		<h3 id="other-finds">Other Finds along the way</h3>
+		<ul>
+			<li><a href="dependencies/icprogkit-202-source.sit.bin">Internet Config 2.0.2 Source</a></li>
+			<li><a href="dependencies/MenuSharingClient.sit.bin"> Carbonized Menu Sharing Toolkit (much newer than called for by mozilla, carbonized)</a></li>
+		</ul>
+			<p> In Short, this project is stalled until I can get ahold of a copy of the Develop 25 cd from apple... I'll try the 68k mla forums next... If anyone has it, post to the retrocomputing thread <a href="https://retrocomputing.stackexchange.com/q/3246/2187">here</a>.</p>
+			<p><strong>Update: I managed to get ahold of the develop 26 cd on ebay, my understanding is that it should also contain all of the build tools that were supplied on the develop 25 cd, but we will see. It should arrive in about a week.</strong></p>
+		<p> One of the guys on the 68kmla forums came through and got me not only ToolFrontEnd but everything that was Distributed with Develop 25. I've added the sit file as a link above.</p>
+		<h2>First Build Attempt (July 15<sup>th</sup>, 2017)</h2>
+		<p> I'm adding a table that documents what libraries I've been able to build. you can skip my rambling and just see what I've built and when I figured out how to build it.</p>
+		<table>
+			<thead>
+				<tr>
+					<th>Library</th><th>Built On</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td>:ns:lib:mac:NSRuntime:NSRuntime.mcp</td><td>7/14</td></tr>
+				<tr><td>:ns:cmd:macfe:restext:NavStringLibPPC.mcp</td><td>7/14</td></tr>
+				<tr><td>:ns:lib:mac:MoreFiles:build:MoreFilesPPC.prj</td><td>7/14</td></tr>
+                                <tr><td>:ns:nsprpub:macbuild:NSPR20PPC.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:dbm:macbuild:DBMPPC.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:lib:mac:MacMemoryAllocator:MemAllocator.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:lib:mac:NSStdLib:NSStdLib.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:modules:security:freenav:macbuild:NoSecurity.mcp</td><td>7/14</td></tr>
+                                <tr><td>:ns:xpcom:macbuild:xpcomPPC.mcp</td><td>7/15</td></tr>
+                                <tr><td>:ns:lib:mac:PowerPlant:PowerPlant.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:modules:zlib:macbuild:zlib.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:jpeg:macbuild:JPEG.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:sun-java:stubs:macbuild:JavaStubs.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:js:jsj:macbuild:JSJ_PPC.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:js:macbuild:JavaScriptPPC.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:nav-java:stubs:macbuild:NavJavaStubs.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:modules:rdf:macbuild:RDF.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:modules:xml:macbuild:XML.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:modules:libfont:macbuild:FontBroker.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:modules:schedulr:macbuild:Schedulr.mcp</td><td>11/12</td></tr>
+                                <tr><td>:ns:cmd:macfe:projects:client:Navigator.mcp</td><td></td></tr>
+			</tbody>
+		</table>
+		<p> I began by using a trusty and stable Sheepshaver image that I keep around running Mac OS 9.0.4. I installed Codwarrior 3 Pro on a 1 Gb disk image and followed the instructions spelled out in macbuild.htm to a letter.</p>		<p> Next I started the build. The build process is an interesting one as I am used to opening up a project file and clicking build, but the guys at netscape created a much more involved build method. I assume their crazy build style has a lot to do with the speed of the available computers at the time. If you cut everything up into seperate modules and libraries that can be build seperately, you save compiling time.</p>
+		<p> Anyway, to build I needed to open up a folder 
+		<pre> Mozilla Source:ns:cmd:macfe:projects:client</pre>
+		this folder contained 4 text files that are basically manifests of a dozen or more codewarrior projects each. To build I would drag one of these text files onto an application called 'BuildList' in the parent directory. (I'm aiming for the ones that start with 'BuildNavPPC', because I'm not particularly interested in the extra mozilla features like composer.)</p>
+		<p> Once the build started it immediately hit me with this message and stopped.<br />
+<img src="convert.gif" /><br />
+It seems that Each and every project file is actually older than The version of Codewarrior 3 Pro that I'm running, so they will all need to be converted first. It seems that Netscape was probably using Codewarrior 2 Pro when they pushed this source code release. Hopefully this doesn't become too much of a problem. Converting the project files relatively painless, however I need to restart the build process from the very beginning each time I convert a project, as the window halts the build script in such a way that it cannot be resumed.</p>
+		<p> It turns out the instructions are a tad difficient in they sometimes skip steps such as moving dependencies out of subfolders before installing them. Most of the dependencies I used were the exact versions but a couple I was unable to obtain exact versions so I had to substitute. The biggest example of this is CWasteEdit I needed to rename the folder to have a date on the end before codewarrior. Fortunately all of these sorts of problems were easy to resolve as codewarrior gave me nice neat errors that told me the dependency, and the path it was expecting to find it at. I then just needed to determine why it wasn't where codewarrior expected it to be.</p>
+		<p> Another obversation is that the finder informs me after each project builds that ToolServer has Unexpectedly quit.<br />
+<img src="toolserver.gif" /><br />
+I think this is an indicator that the guys at netscape were not using HFS+ when they released the source code. Given the date It appears that Mac OS 8.1 has only been released days prior to the Mozilla source, and its probably safe to say that they weren't that eager to reformat their hard drives at the time.</p>
+		<p> Anyway, about 4 projects into the build I got stopped in my tracks. 
+<br /><em>Linker Errors...</em><br />
+<img src="link_errors.gif" /><br />
+It appears that the libraries provided with my version of codewarrior are perhaps deficient in some way... I'm not entirely certain however. In this case it appears that all of these undefined symbols are defined in a .exp file in the NSRuntime.mcp project. I'm going to go out on a limb and comment them out.</p>
+		<p>commenting out the references appears to have worked and left me with one build error:
+<pre>
+		#if __MWERKS__>=0x2020
+		::operator delete[] ((char *)block-2*sizeof(size_t));
+		#else
+		::operator delete ((char *)block-2*sizeof(size_t));
+		#endif
+</pre>
+	The if portion of this preprocessor directive seems to have something to do with the version of codewarrior, I'm going to go out on a limb and assume it's referring to the wrong version of codewarrior and comment it out in favor of the else.... And that worked, that particular project now builds now off to start the build process again.</p>
+		<p> Several more projects built without issue, until I reached NSStdLib.mcp, and then another roadblock:<br />
+<img src="algorith.gif" /><br />
+missing source code?!?! It appears that my version of codewarrior has a different metroworks standard library than the one used by the guys at netscape... I have a file called algorithm.cpp but not algorith.cpp... I'll try swapping it out for this project and see what happens.</p>
+		<p> and More Link Errors... from a .exp file. commenting them out seemed to work out okay last time so I'm going to try it again.... and that seemed to work, however i needed to add MallocUtils.c to the project file to get everything to build properly. onto the next build attempt...</p>
+		<p> After several more sucessful builds, i'm now stuck on xpcomPPC.mcp and I'm tired, so I'm going to call it a night.<br />
+<img src="xpcom.gif" />Here's the error...</p>		
+		<p>Okay Figured this one out, I found some codewarrior documentation here: <a href="http://www.nxp.com/docs/en/reference-manual/CCOMPILERRM.pdf">C Compilers Reference 3.2</a> I needed to change 'export' to 'exportdll' in the file that defnes the macros. once doing this everything built without error. On to the next attempt... </p>
+		<p>next Roadblock? PowerPlant.mcp. It appears that I'm encountering numerous issues where my libraries from codewarrior are slightly different or something is slightly out of wack... I really should try building with Codewarrior 2 Pro... the problem is there are no copies of Codewarrior 2 Pro on ebay or Macintosh Garden. If anyone has a copy please contact me on 68kmla.org...</p>
+		<p> once again I've got linker errors...<br />
+<img src="powerplant.gif" /><br />
+		<h2>Restart - November 3<sup>rd</sup> 2017</h2>
+		<p>I've decided to take another approach here. I've found a partial download of Codewarrior 2 Pro, and a complete download of Codewarrior 1 Pro... I'm going to create a new disk image and install Codewarrior 1, and then Drag the Codewarrior 2 files over top of the codewarrior 1 Files. From here I will start the build process again.</p>
+		<p>Well this attempt went nowhere fast...<br /><img src="cw_version.gif" /></p>
+		<p>Progress! I copied the IDE executable from Codewarrior 3, so that I'm not useing Codewarrior IDE 3.0 with the Codewarrior Pro 1 libraries, so far I'm finding that the libraries that shipped with Codewarrior Pro 1 are more compatible with the netscape source than the libraries that shipped with codewarrior Pro 3. If only I had a copy of Codewarrior Pro 2 this would probably be a lot easier...</p>
+		<p>I've discovered that things work well if I do two things. The codewarrior project files have lost their configuration when being opened by Codewarrior Pro 3. The first thing that fixes many issues is to reconfigure the the project settings Target to 'Library' as well as Prefix file.<br /><img src="settings1.gif" /><br /><img src="settings2.gif" /></p>
+		<h2>Codewarrior Pro 2 (For Real) - December 3<sup>rd</sup> 2017</h2>
+		<p> Good News Everyone! Someone has upload Codewarrior Pro 2 to the Macintosh Repository just a few days ago! I've downloaded it and I'm going to yet again restart my build process. But this time I'm optimistic I will have more success! Check back here soon.</p>
+		<h2>Success! - December 10<sup>th</sup> 2017</h2>
+		<p> Codewarrior Pro 2 did the trick, however I ran into some intereseting resource fork issues aparently caused by either hfs+ or Mac OS 9... So, I created a disk image with Mac OS 8 and HFS, unfortunately sheepshaver was trash as far as stability goes, but I was about to build the entire project without a single error. So the result is: Mac OS 8 + Codewarrior Pro 2 = Successful Build. </p>
+		<img src="success.gif" />
+		<p>the next step will be to move the project to my Beige G3...</p>
+	</body>
+</html>	
