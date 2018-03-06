@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Beige G3</title>
+	</head>
+	<body>
+		<a href="index.html">Go Back...</a>
+		<h1>Building on the Beige G3</h1>
+		<p> Well here it is... It's quite the monster. running a full 768Mb of Ram and a 500 mhz G4 Upgrade from PowerLogix. the only machine that can run both Mac OS 8.0 AND OS X 10.2</p>
+
+		<p> It took some effort, but I managed to set up a boot partition running mac os 8.1 on HFS. Everything built without a hitch, and then I set myself on the unexpectedly long journey of reoganizing the source code.</p>
+
+		<p>I've moved everything into a three folder type of arrangement.</p>
+		<ul>
+			<li>build (contians Codewarrior projects and build scripts)</li>
+			<li>lib (contains common project libraries used by multiple projects)</li>
+			<li>src (contains the include and src files for the project files contained in build)</li>
+		</ul>
+		<p> my goal in seperating the src files from the build projects is to set things up so that, hopefully, there will be no relevant resource forks in the src directory and we can use git or something to potentially make this a multi-person project.</p>
+
+		<h2>Cutting the fat...</h2>
+		<p>
+			the first thing I did was set to work on removing things that weren't necessary. I decided that JAVA made the easiest target, as java web applets are largely gone from the internet these days and any that are around wont run on an old mac. 
+		</p>
+		<p> Thus far, I was able to eliminate 4 projects from the code. </p>
+		<ul>
+			<li>sun-java:JavaStubs.mcp (stubs used to tie into sun java (not included))</li>
+			<li>js:jsj:JSJ_Debug.mcp (Some kind of javascript java bridge, allowing javascript to call java methods or vice versa)</li>
+			<li>nav-java:NavJavaStubs.mcp (not sure, but also not necessary anymore)</li>
+			<li>composer:Composer.mcp (Nobody needs to be making websites in composer)</li>
+		</ul>
+
+		<p> I've also set up a github repo located here: <a href="https://github.com/denodster/mozz" >https://github.com/denodster/mozz</a></p>
+
+		<p> The next thing  I'll do revolves around this file: <a href="https://github.com/denodster/mozz/blob/master/ns/src/pch/Component_Config.h">Component_Config.h</a> I intend to eliminate all preprocessor macros that aren't relevant and their associated code. This should allow me to get rid of a lot of code, maybe even  a number of files.</p>
+	</body>
+</html>
