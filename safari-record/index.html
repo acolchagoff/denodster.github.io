@@ -133,7 +133,8 @@ btnStartRecording.onclick = function() {
     }
 
     var options = {
-        type: 'audio',
+        recorderType: StereoAudioRecorder,
+	type: 'audio',
         numberOfAudioChannels: 2,
         checkForInactiveTracks: true,
         bufferSize: 16384,
