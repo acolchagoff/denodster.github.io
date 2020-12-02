@@ -13,12 +13,12 @@
 				dlButtons = document.querySelectorAll('.download-button');
 				
 				for(i = 0; i < dlButtons.length; i++){
-					dlButtons[i].touchesBegan = function(){
+					dlButtons[i].touchesEnded = function(){
 						//run the mouse over code
 						this.onMouseOver();
 						//replace the touches begain with the click to prepare for the next touch.
-						this.touchesBegan = function(){
-							this.click();
+						this.touchesEnded = function(){
+							this.onMouseUp();
 						}
 					};
 				}
@@ -27,9 +27,9 @@
 		</script>
 	</head>
 	<body>
-		<a href="#" class="download-button" onClick="window.location.href = 'test.pdf'" onMouseOver="document.getElementById('item-box').innerText = 'item1';">Item 1</a><br />
-		<a href="#" class="download-button" onClick="window.location.href = 'test.pdf'" onMouseOver="document.getElementById('item-box').innerText = 'item2';">Item 2</a><br />
-		<a href="#" class="download-button" onClick="window.location.href = 'test.pdf'" onMouseOver="document.getElementById('item-box').innerText = 'item3';">Item 3</a><br />
+		<a href="#" class="download-button" onMouseUp="window.location.href = 'test.pdf'" onMouseOver="document.getElementById('item-box').innerText = 'item1'; this.innerText = 'Download';">Item 1</a><br />
+		<a href="#" class="download-button" onMouseUp="window.location.href = 'test.pdf'" onMouseOver="document.getElementById('item-box').innerText = 'item2'; this.innerText = 'Download';">Item 2</a><br />
+		<a href="#" class="download-button" onMouseUp="window.location.href = 'test.pdf'" onMouseOver="document.getElementById('item-box').innerText = 'item3'; this.innerText = 'Download';">Item 3</a><br />
 		
 		
 		<p id="item-box">item Box</p>
