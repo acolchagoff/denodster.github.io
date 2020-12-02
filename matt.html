@@ -1,6 +1,4 @@
 <html>
-	
-	
 	<head>
 		<script type="text/javascript">
 			
@@ -27,9 +25,21 @@
 		</script>
 	</head>
 	<body>
-		<a href="#" class="download-button" onMouseUp="window.location.href = 'test.pdf'" onMouseOver="document.getElementById('item-box').innerText = 'item1'; this.innerText = 'Download';">Item 1</a><br />
-		<a href="#" class="download-button" onMouseUp="window.location.href = 'test.pdf'" onMouseOver="document.getElementById('item-box').innerText = 'item2'; this.innerText = 'Download';">Item 2</a><br />
-		<a href="#" class="download-button" onMouseUp="window.location.href = 'test.pdf'" onMouseOver="document.getElementById('item-box').innerText = 'item3'; this.innerText = 'Download';">Item 3</a><br />
+		<a href="#" class="download-button" 
+			onMouseUp="window.location.href = 'test.pdf'" 
+			onMouseOver="document.getElementById('item-box').innerText = 'item1'; this.innerText = 'Download';"
+			onMouseOut="document.getElementById('item-box').innerText = 'item Box'; this.innerText = 'Item 1';"
+				>Item 1</a><br />
+		<a href="#" class="download-button" 
+			onMouseUp="window.location.href = 'test.pdf'" 
+			onMouseOver="document.getElementById('item-box').innerText = 'item2'; this.innerText = 'Download';"
+			onMouseOut="document.getElementById('item-box').innerText = 'item Box'; this.innerText = 'Item 2';"
+				>Item 2</a><br />
+		<a href="#" class="download-button" 
+			onMouseUp="window.location.href = 'test.pdf'" 
+			onMouseOver="document.getElementById('item-box').innerText = 'item3'; this.innerText = 'Download';" 
+			onMouseOut="document.getElementById('item-box').innerText = 'item Box'; this.innerText = 'Item 3';"
+				>Item 3</a><br />
 		
 		
 		<p id="item-box">item Box</p>
