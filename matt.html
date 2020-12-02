@@ -11,15 +11,13 @@
 				dlButtons = document.querySelectorAll('.download-button');
 				
 				for(i = 0; i < dlButtons.length; i++){
-					dlButtons[i].onTouchEnd = function(e){
+					dlButtons[i].ontouchend = function(e){
 						//run the mouse over code
 						this.onMouseOver();
 						//replace the touches begain with the click to prepare for the next touch.
-/*
-						this.onTouchEnd = function(){
+						this.ontouchend = function(){
 							this.onMouseUp();
 						}
-*/
 						e.preventDefault();
 					};
 				}
