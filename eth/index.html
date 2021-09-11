@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Web 3 Demo</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <script src='node_modules/web3/dist/web3.min.js'></script>
+</head>
+
+<body>
+
+    Web 3 Demo
+    <br >
+    <button onclick="printFavoriteNumber();">Print Favorite Number</button>
+    <input id="number-input" type="number" /><button onclick="changeFavoriteNumber();">Change Favorite Number</button>
+    <br /><br />
+    Status: <span id="status">Loading...</span>
+
+    <script type="text/javascript">
+	async function loadContract() {
+		const ABI = [
+		{
+			"inputs": [],
+			"name": "getNumber",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "_number",
+					"type": "uint256"
+				}
+			],
+			"name": "setNumber",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		}
+		];
+		const contractAddress = '0xd9145CCE52D386f254917e481eB44e9943F39138';
+		return await new window.web3.eth.Contract(ABI, contractAddress);
+	}
+    	async function loadWeb3() {
+    		if (window.ethereum) {
+    		    window.web3 = new Web3(window.ethereum);
+    		    window.ethereum.enable();
+    		}
+    	}
+
+	async function load() {
+	    await loadWeb3();
+    	    window.contract = await loadContract();
+	    updateStatus('Ready!');
+	}
+async function printFavoriteNumber() {
+    updateStatus('fetching Favorite Number...');
+    const favNumber = await window.contract.methods.getNumber().call();
+    updateStatus(`number: ${favNumber}`);
+}
+
+async function changeFavoriteNumber() {
+    var value = document.querySelector('#number-input').value;
+    //const value = Math.floor(Math.random() * 100);
+    updateStatus(`Updating favoriteNumber with ${value}`);
+    const account = await getCurrentAccount();
+    const favNumber = await window.contract.methods.setNumber(value).send({ from: account });
+    updateStatus('Updated.');
+}
+async function getCurrentAccount() {
+    const accounts = await window.web3.eth.getAccounts();
+    return accounts[0];
+}
+	function updateStatus(status) {
+	    const statusEl = document.getElementById('status');
+	    statusEl.innerHTML = status;
+	    console.log(status);
+	}
+
+	load();   
+    </script>
+</body>
+
+</html>
