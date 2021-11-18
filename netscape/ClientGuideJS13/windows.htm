@@ -56,7 +56,7 @@ A window name is not required when you create a window. But the window must have
 <A NAME="1005000">
 When you open a window, you can specify attributes such as the window's height and width and whether the window contains a toolbar, location field, or scrollbars. The following statement creates a window without a toolbar but with scrollbars:</A></P>
 <PRE><A NAME="1004232">msgWindow=window.open<br>&nbsp;&nbsp;&nbsp;("sesame.html","displayWindow","toolbar=no,scrollbars=yes")</A></PRE><A NAME="1009329">
-For more information on window names, see <A HREF="windows.htm#1004300">"Referring to Windows and Frames" on page&nbsp;197</A>. For details on these window attributes, see the <CODE>open</CODE> method of the <CODE>window</CODE> object in the <A HREF="http://developer.netscape.com/docs/manuals/js/client/jsref/index.htm" TARGET="_top"><I>Client-Side JavaScript Reference</I></A>.</A></P>
+For more information on window names, see <A HREF="windows.htm#1004300">"Referring to Windows and Frames" on page&nbsp;197</A>. For details on these window attributes, see the <CODE>open</CODE> method of the <CODE>window</CODE> object in the <A HREF="../ClientReferenceJS13/index.htm" TARGET="_top"><I>Client-Side JavaScript Reference</I></A>.</A></P>
 
 <H3><A NAME="Head2;"></A>
 <A NAME="1004234">
@@ -106,7 +106,7 @@ The following figure shows the hierarchy of the frames. All three frames have th
 
 
 <A NAME="1004250">
-You can refer to the previous frames using the <CODE>frames</CODE> array as follows. (For information on the <CODE>frames</CODE> array, see the <CODE>window</CODE> object in the <A HREF="http://developer.netscape.com/docs/manuals/js/client/jsref/index.htm" TARGET="_top"><I>Client-Side JavaScript Reference</I></A>.)</A></P>
+You can refer to the previous frames using the <CODE>frames</CODE> array as follows. (For information on the <CODE>frames</CODE> array, see the <CODE>window</CODE> object in the <A HREF="../ClientReferenceJS13/index.htm" TARGET="_top"><I>Client-Side JavaScript Reference</I></A>.)</A></P>
 <ul><LI><A NAME="1004251">
 <CODE>listFrame</CODE> is <CODE>top.frames[0]</CODE>
 </A></LI><LI><A NAME="1004252">
@@ -127,7 +127,7 @@ The following figure shows the hierarchy of the frames. <CODE>upperFrame</CODE> 
 
 
 <A NAME="1005340">
-You can refer to the previous frames using the <CODE>frames</CODE> array as follows. (For information on the <CODE>frames</CODE> array, see the <CODE>window</CODE> object in the <A HREF="http://developer.netscape.com/docs/manuals/js/client/jsref/index.htm" TARGET="_top"><I>Client-Side JavaScript Reference</I></A>.)</A></P>
+You can refer to the previous frames using the <CODE>frames</CODE> array as follows. (For information on the <CODE>frames</CODE> array, see the <CODE>window</CODE> object in the <A HREF="../ClientReferenceJS13/index.htm" TARGET="_top"><I>Client-Side JavaScript Reference</I></A>.)</A></P>
 <ul><LI><A NAME="1004261">
 <CODE>upperFrame</CODE> is <CODE>top.frames[0]</CODE>
 </A></LI><LI><A NAME="1004262">
@@ -207,7 +207,7 @@ The name of a window variable: The window variable is the variable specified whe
 <P><LI><A NAME="1005750">
 Omit the window name: Because the existence of the current window is assumed, you do not have to refer to the name of the window when you call its methods and assign its properties. For example, <CODE>close()</CODE> closes the current window. However, when you open or close a window within an event handler, you must specify <CODE>window.open()</CODE> or <CODE>window.close()</CODE> instead of simply using <CODE>open()</CODE> or <CODE>close()</CODE>. Because of the scoping of static objects in JavaScript, a call to <CODE>close()</CODE> without specifying an object name is equivalent to <CODE>document.close()</CODE>.</A></LI>
 </ul><A NAME="1004308">
-For more information on these techniques for referring to windows, see the <CODE>window</CODE> object in the <A HREF="http://developer.netscape.com/docs/manuals/js/client/jsref/index.htm" TARGET="_top"><I>Client-Side JavaScript Reference</I></A>.</A></P>
+For more information on these techniques for referring to windows, see the <CODE>window</CODE> object in the <A HREF="../ClientReferenceJS13/index.htm" TARGET="_top"><I>Client-Side JavaScript Reference</I></A>.</A></P>
 <A NAME="1004310">
 <B>Example 1: refer to the current window.</B> The following statement refers to a form named <CODE>musicForm</CODE> in the current window. The statement displays an alert if a checkbox is checked.</A></P>
 <PRE><A NAME="1004311">if (document.musicForm.checkbox1.checked) {<br>&nbsp;&nbsp;&nbsp;alert('The checkbox on the musicForm is checked!')}</A></PRE><A NAME="1004312">
