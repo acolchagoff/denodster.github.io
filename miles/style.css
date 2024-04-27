@@ -1,0 +1,16 @@
+h1 {
+	color: blue;
+}
+
+li {
+	color: red;
+}
+
+h2 {
+	color: green;
+	border-style: dotted;
+}
+
+p {
+	font-size: 80px;
+}
